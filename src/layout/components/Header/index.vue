@@ -1,0 +1,110 @@
+<template>
+  <div class="layout-header">
+    <div class="layout-header-trigger layout-header-left" @click="reloadPage">
+      <n-icon size="18">
+        <ReloadOutline />
+      </n-icon>
+      <n-breadcrumb v-if="state.crumbSetting" class="layout-bread">
+        <template v-for="item in breadCrumbList" key="item.name">
+          <n-breadcrumb-item>
+            {{ item.meta.title }}
+          </n-breadcrumb-item>
+        </template>
+      </n-breadcrumb>
+    </div>
+    <div class="layout-header-trigger">
+      <n-dropdown trigger="hover" :options="avatarOptions">
+        <div class="avatar">
+          <n-avatar round>
+            {{ state.username.charAt(0) }}
+            <template #icon>
+              <UserOutlined />
+            </template>
+          </n-avatar>
+        </div>
+      </n-dropdown>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ReloadOutline } from "@vicons/ionicons5";
+import { UserOutlined } from "@vicons/antd";
+import { computed, reactive, unref } from "vue";
+import { useUserStore } from "@/store/modules/user";
+import { useRoute, useRouter } from "vue-router";
+
+const store = useUserStore();
+const router = useRouter();
+const route = useRoute();
+
+const reloadPage = () => {
+  router.push({ path: unref(route).fullPath });
+};
+
+const username = store.$state.username;
+
+const breadCrumbList = computed(() => {
+  return route.matched;
+});
+
+const state = reactive({
+  username: username || "",
+  crumbSetting: true,
+});
+
+const avatarOptions = [
+  {
+    label: "个人设置",
+    key: 1,
+    props: {
+      onClick: () => {
+        router.push("/user");
+      },
+    },
+  },
+  {
+    label: "退出登录",
+    key: 2,
+    props: {
+      onClick: () => {
+        store.logOut();
+        router.push("/login");
+      },
+    },
+  },
+];
+</script>
+
+<style scoped>
+.layout-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+  width: 100%;
+  height: 64px;
+  z-index: 11;
+  box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
+}
+
+.layout-header-trigger {
+  padding: 0 20px;
+}
+
+.layout-header-left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.layout-bread {
+  margin-left: 10px;
+}
+
+.avatar {
+  display: flex;
+  align-items: center;
+  height: 64px;
+}
+</style>
