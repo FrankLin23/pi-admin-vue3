@@ -1,13 +1,13 @@
 <template>
   <div id="app">
-    <Application>
+    <ApplicationConfig>
       <router-view />
-    </Application>
+    </ApplicationConfig>
   </div>
 </template>
 
 <script setup lang="ts">
-  import Application from "./components/Application/index.vue";
+  import { ApplicationConfig } from "./components/Application";
 </script>
 
 <style scoped>
