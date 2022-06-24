@@ -42,103 +42,104 @@
 </template>
 
 <script setup lang="ts">
-import { FormInst, FormRules } from "naive-ui";
-import { ref } from "vue";
-import { getCaptchaImage } from "@/api/login";
-import { useUserStore } from "@/store/modules/user";
-import { useRoute, useRouter } from "vue-router";
+  import { FormInst, FormRules, useMessage } from "naive-ui";
+  import { ref } from "vue";
+  import { getCaptchaImage } from "@/api/login";
+  import { useUserStore } from "@/store/modules/user";
+  import { useRouter } from "vue-router";
 
-const store = useUserStore();
-const router = useRouter();
-const route = useRoute();
+  const store = useUserStore();
+  const router = useRouter();
+  const message = useMessage();
 
-const loginForm = ref<LoginInfo>({
-  username: null,
-  password: null,
-  captchaCode: null,
-  captchaId: null,
-});
-const loginFormRef = ref<FormInst | null>(null);
-const loginRules: FormRules = {
-  username: [
-    {
-      required: true,
-      trigger: ["input", "blur"],
-    },
-  ],
-  password: [
-    {
-      required: true,
-      message: "请输入密码",
-    },
-  ],
-  captchaCode: [
-    {
-      required: true,
-      message: "请输入验证码",
-      trigger: ["input", "blur"],
-    },
-  ],
-};
-
-const captchaImageBase64 = ref<string>("");
-const refreshCaptcha = async () => {
-  const { data } = await getCaptchaImage({
-    width: 100,
-    height: 50,
+  const loginForm = ref<LoginInfo>({
+    username: null,
+    password: null,
+    captchaCode: null,
+    captchaId: null,
   });
-  captchaImageBase64.value = data.img;
-  loginForm.value.captchaId = data.id;
-};
-const handleLogin = () => {
-  loginFormRef.value?.validate((errors) => {
-    if (!errors) {
-      store
-        .login(loginForm.value)
-        .then(() => {
-          router.push({ path: "/" });
-        })
-        .catch((error) => {
-          refreshCaptcha();
-          console.log(error);
-        });
-    } else {
-      console.log(errors);
-    }
-  });
-};
+  const loginFormRef = ref<FormInst | null>(null);
+  const loginRules: FormRules = {
+    username: [
+      {
+        required: true,
+        trigger: ["input", "blur"],
+      },
+    ],
+    password: [
+      {
+        required: true,
+        message: "请输入密码",
+      },
+    ],
+    captchaCode: [
+      {
+        required: true,
+        message: "请输入验证码",
+        trigger: ["input", "blur"],
+      },
+    ],
+  };
 
-refreshCaptcha();
+  const captchaImageBase64 = ref<string>("");
+  const refreshCaptcha = async () => {
+    const { data } = await getCaptchaImage({
+      width: 100,
+      height: 50,
+    });
+    captchaImageBase64.value = data.img;
+    loginForm.value.captchaId = data.id;
+  };
+  const handleLogin = () => {
+    loginFormRef.value?.validate((errors) => {
+      if (!errors) {
+        store
+          .login(loginForm.value)
+          .then(() => {
+            message.success("登录成功");
+            router.push({ path: "/" });
+          })
+          .catch((error) => {
+            refreshCaptcha();
+            console.log(error);
+          });
+      } else {
+        console.log(errors);
+      }
+    });
+  };
+
+  refreshCaptcha();
 </script>
 
 <style scoped>
-.login-container {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-image: url("src/assets/bg-image.jpg");
-  background-size: cover;
-}
+  .login-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url("src/assets/bg-image.jpg");
+    background-size: cover;
+  }
 
-.login-form {
-  width: 300px;
-  background-color: #fff;
-  padding: 0 20px;
-}
+  .login-form {
+    width: 300px;
+    background-color: #fff;
+    padding: 0 20px;
+  }
 
-.title {
-  text-align: center;
-}
+  .title {
+    text-align: center;
+  }
 
-.captcha-container {
-  width: 33%;
-  height: 50px;
-}
+  .captcha-container {
+    width: 33%;
+    height: 50px;
+  }
 
-.captcha-image {
-  width: 100%;
-  height: 100%;
-}
+  .captcha-image {
+    width: 100%;
+    height: 100%;
+  }
 </style>

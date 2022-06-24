@@ -1,10 +1,14 @@
 <template>
   <div id="app">
-    <router-view />
+    <Application>
+      <router-view />
+    </Application>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+  import Application from "./components/Application/index.vue";
+</script>
 
 <style scoped>
   #app,
