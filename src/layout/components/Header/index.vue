@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-header">
+  <n-layout :content-style="layoutHeader">
     <div class="layout-header-trigger layout-header-left" @click="reloadPage">
       <n-icon size="18">
         <ReloadOutline />
@@ -33,7 +33,7 @@
         </n-button>
       </n-dropdown>
     </div>
-  </div>
+  </n-layout>
 </template>
 
 <script setup lang="ts">
@@ -88,20 +88,20 @@
   ];
   const settingStore = useSettingStore();
   const { darkThemeFlag } = storeToRefs(settingStore);
+
+  const layoutHeader = {
+    display: "flex",
+    "justify-content": "space-between",
+    "align-items": "center",
+    padding: 0,
+    width: "100%",
+    height: "64px",
+    "z-index": 11,
+    "box-shadow": "0 1px 4px rgb(0 21 41 / 8%)",
+  };
 </script>
 
 <style scoped>
-  .layout-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0;
-    width: 100%;
-    height: 64px;
-    z-index: 11;
-    box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
-  }
-
   .layout-header-trigger {
     padding: 0 20px;
   }

@@ -1,9 +1,7 @@
-<template>User</template>
+<template>
+  <n-layout> </n-layout>
+</template>
 
-<script>
-export default {
-  name: "index",
-};
-</script>
+<script setup lang="ts"></script>
 
 <style scoped></style>

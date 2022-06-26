@@ -11,7 +11,7 @@ export const constantRoutes: RouteRecordRaw[] = [
   },
   {
     path: "/404",
-    component: () => import("@/views/404.vue"),
+    component: () => import("@/views/Error/404.vue"),
     meta: {
       title: "404",
     },
@@ -66,7 +66,7 @@ export const constantRoutes: RouteRecordRaw[] = [
   },
   {
     path: "/:pathMatch(.*)",
-    component: () => import("@/views/404.vue"),
+    component: () => import("@/views/Error/404.vue"),
   },
 ];
 
