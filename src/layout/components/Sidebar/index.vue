@@ -23,7 +23,7 @@
     Desktop,
     Videocam,
     InformationCircle as Information,
-    Home,
+    People,
     Person,
   } from "@vicons/ionicons5";
 
@@ -78,11 +78,11 @@
             },
           },
           {
-            default: () => "智能家居管理",
+            default: () => "用户管理",
           }
         ),
       key: "system",
-      icon: renderIcon(Home),
+      icon: renderIcon(People),
     },
     {
       label: () =>

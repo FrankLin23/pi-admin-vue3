@@ -27,3 +27,8 @@ interface UserInfoType {
   phone: string | null;
   remark: string | null;
 }
+
+interface schemaItem {
+  field: string;
+  label: string;
+}
