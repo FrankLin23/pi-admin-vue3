@@ -1,6 +1,10 @@
 <template>
   <div class="monitor-container">
-    <n-image class="video" src="http://192.168.0.108:8080/?action=stream" />
+    <n-image
+      class="video"
+      src="http://192.168.0.108:8080/?action=stream"
+      alt="video"
+    />
   </div>
 </template>
 

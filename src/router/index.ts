@@ -47,6 +47,14 @@ export const constantRoutes: RouteRecordRaw[] = [
         },
       },
       {
+        path: "manage",
+        name: "User Management",
+        component: () => import("@/views/Management/index.vue"),
+        meta: {
+          title: "用户管理",
+        },
+      },
+      {
         path: "user",
         name: "User",
         component: () => import("@/views/User/index.vue"),

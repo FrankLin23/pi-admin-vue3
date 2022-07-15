@@ -25,6 +25,7 @@
     InformationCircle as Information,
     People,
     Person,
+    HomeOutline as Home,
   } from "@vicons/ionicons5";
 
   const settingStore = useSettingStore();
@@ -78,10 +79,26 @@
             },
           },
           {
-            default: () => "用户管理",
+            default: () => "智能家居管理",
           }
         ),
       key: "system",
+      icon: renderIcon(Home),
+    },
+    {
+      label: () =>
+        h(
+          RouterLink,
+          {
+            to: {
+              path: "/manage",
+            },
+          },
+          {
+            default: () => "用户管理",
+          }
+        ),
+      key: "management",
       icon: renderIcon(People),
     },
     {
