@@ -7,5 +7,5 @@ export const getCaptchaImage = (query: CaptchaCode) => {
 };
 
 export const login = (data: LoginInfo) => {
-  return service.post("/user/login", data);
+  return service.post("/login", data);
 };

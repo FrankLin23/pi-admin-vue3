@@ -1,4 +1,5 @@
-import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router";
+import type { RouteRecordRaw } from "vue-router";
 import Layout from "@/layout/index.vue";
 
 export const constantRoutes: RouteRecordRaw[] = [
@@ -7,13 +8,6 @@ export const constantRoutes: RouteRecordRaw[] = [
     component: () => import("@/views/Login/index.vue"),
     meta: {
       title: "登录",
-    },
-  },
-  {
-    path: "/404",
-    component: () => import("@/views/Error/404.vue"),
-    meta: {
-      title: "404",
     },
   },
   {
